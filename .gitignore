@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# Database and local files
+*.sqlite3
+touch_of_joy.db
+uploads/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# Test output
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
