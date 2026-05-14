@@ -167,3 +167,69 @@ def schedule():
         return redirect(url_for('admin.schedule'))
 
     return render_template('admin_schedule.html', schedule_items=schedule_items, active='schedule')
+
+
+@admin_bp.route('/database', methods=['GET'])
+def database():
+    denied = admin_required()
+    if denied:
+        return denied
+    
+    return render_template('admin_database.html', active='database')
+
+
+@admin_bp.route('/database/reset', methods=['POST'])
+def database_reset():
+    denied = admin_required()
+    if denied:
+        return denied
+    
+    try:
+        db.drop_all()
+        db.create_all()
+        
+        # Recreate default admin user
+        admin_email = 'admin123@gmail.com'
+        admin_password = 'admin@123'
+        admin = User(name='Admin', email=admin_email, is_admin=True)
+        admin.set_password(admin_password)
+        db.session.add(admin)
+        
+        # Recreate default schedule
+        days = [
+            ('Monday', '09:00 AM - 07:00 PM'),
+            ('Tuesday', '09:00 AM - 07:00 PM'),
+            ('Wednesday', '09:00 AM - 07:00 PM'),
+            ('Thursday', '09:00 AM - 07:00 PM'),
+            ('Friday', '09:00 AM - 07:00 PM'),
+            ('Saturday', '10:00 AM - 08:00 PM'),
+            ('Sunday', '10:00 AM - 05:00 PM'),
+        ]
+        for day, hours in days:
+            schedule = Schedule(day=day, hours=hours)
+            db.session.add(schedule)
+        
+        # Recreate sample services
+        samples = [
+            ('Haircut', 'hair', 'Professional haircut tailored to your style and face shape.', 'Hair Cutting.png'),
+            ('Hairstyling', 'hair', 'Expert styling for any occasion - casual, formal, or wedding.', 'Hairstyle.jpg'),
+            ('Braids', 'hair', 'Beautiful braid styles for a fresh, trendy look.', 'Braids.png'),
+            ('Skin Care', 'skin', 'Personalized skincare routine tailored to your skin type.', 'Facial.webp'),
+            ('Facials', 'skin', 'Deep cleansing and rejuvenating facial treatments for radiant skin.', 'Facial.webp'),
+            ('Acne Treatments', 'skin', 'Targeted acne treatment to clear and prevent breakouts.', 'Acne treatments.jpg'),
+            ('Waxing', 'skin', 'Smooth and hair-free skin with our professional waxing service.', 'Waxing.jpeg'),
+            ('Eyebrow Threading', 'grooming', 'Precise eyebrow shaping with traditional threading technique.', 'eyebrow-threading.jpeg'),
+            ('Bridal Makeup', 'bridal', 'Complete bridal makeup with premium products and personalized design.', 'Bride.png'),
+        ]
+        for name, category, description, photo in samples:
+            service = Service(name=name, category=category, description=description, photo=photo)
+            db.session.add(service)
+        
+        db.session.commit()
+        flash('Database reset successfully! All tables recreated with default data.', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error resetting database: {str(e)}', 'danger')
+    
+    return redirect(url_for('admin.database'))
+

@@ -7,6 +7,7 @@
       <a href="{{ url_for('admin.services') }}" class="list-group-item list-group-item-action {% if active == 'services' %}active{% endif %}">Services</a>
       <a href="{{ url_for('admin.messages') }}" class="list-group-item list-group-item-action {% if active == 'messages' %}active{% endif %}">Messages</a>
       <a href="{{ url_for('admin.schedule') }}" class="list-group-item list-group-item-action {% if active == 'schedule' %}active{% endif %}">Schedule</a>
+      <a href="{{ url_for('admin.database') }}" class="list-group-item list-group-item-action {% if active == 'database' %}active{% endif %}">Database</a>
     </div>
   </div>
   <div class="col-lg-9">
@@ -15,7 +16,7 @@
         <img src="{{ url_for('main.uploaded_file', filename='Touch Of Joy.jpg') }}" alt="Touch Of Joy logo" class="admin-logo">
         <div>
           <h3 class="mb-1">Admin Portal</h3>
-          <p class="text-muted mb-0">Manage users, services, and salon schedule.</p>
+          <p class="text-muted mb-0">Manage users, services, schedule, and database.</p>
         </div>
       </div>
       {% block admin_content %}{% endblock %}

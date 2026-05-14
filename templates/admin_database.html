@@ -1,0 +1,52 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h4>Database Management</h4>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <strong>⚠️ Warning:</strong> Database operations are dangerous. Use with caution.
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Reset Database</h5>
+    <p class="card-text">
+      This will:
+    </p>
+    <ul>
+      <li>Delete all existing tables</li>
+      <li>Create fresh tables with the current schema</li>
+      <li>Recreate default admin user (admin123@gmail.com / admin@123)</li>
+      <li>Recreate schedule and sample services</li>
+      <li><strong>Delete all user data, contacts, bookings, and uploads</strong></li>
+    </ul>
+    
+    <form method="post" action="{{ url_for('admin.database_reset') }}" onsubmit="return confirm('⚠️ This will DELETE ALL DATA in the database. Are you sure?');">
+      <button type="submit" class="btn btn-danger">
+        🔄 Reset Database
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Information</h5>
+    <dl class="row">
+      <dt class="col-sm-3">Database Type:</dt>
+      <dd class="col-sm-9">
+        {% if config.SQLALCHEMY_DATABASE_URI.startswith('sqlite') %}
+          SQLite (Local)
+        {% elif config.SQLALCHEMY_DATABASE_URI.startswith('postgresql') %}
+          PostgreSQL (Remote)
+        {% else %}
+          Unknown
+        {% endif %}
+      </dd>
+    </dl>
+  </div>
+</div>
+{% endblock %}
