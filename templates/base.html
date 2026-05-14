@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Touch Of Joy Beauty Salon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body class="theme-bg">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top theme-navbar">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center brand-logo" href="{{ url_for('main.home') if session.get('user_id') else url_for('auth.login') }}">
+          <img src="{{ url_for('main.uploaded_file', filename='Touch Of Joy.jpg') }}" alt="Touch Of Joy logo" class="site-logo me-3">
+          <div>
+            <div class="brand-title">Touch Of Joy</div>
+            <div class="brand-subtitle">Beauty Salon</div>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            {% if session.get('user_id') and not session.get('is_admin') %}
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link nav-logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% elif session.get('user_id') and session.get('is_admin') %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.users') }}">User list</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.services') }}">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.schedule') }}">Schedule</a></li>
+            <li class="nav-item"><a class="nav-link nav-logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pb-5">
+      <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

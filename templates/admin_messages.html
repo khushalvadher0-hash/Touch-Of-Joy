@@ -1,0 +1,31 @@
+{% extends 'admin_base.html' %}
+
+{% block admin_content %}
+<h4 class="mb-4">Contact Messages</h4>
+{% if messages %}
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Received</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+          <tr>
+            <td>{{ message.name }}</td>
+            <td>{{ message.email }}</td>
+            <td>{{ message.message }}</td>
+            <td>{{ message.created_at.strftime('%b %d, %Y %I:%M %p') if message.created_at else 'N/A' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="alert alert-info">No contact messages have been received yet.</div>
+{% endif %}
+{% endblock %}

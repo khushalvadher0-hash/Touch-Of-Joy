@@ -1,0 +1,15 @@
+﻿{% extends 'admin_base.html' %}
+{% block admin_content %}
+<h4>Salon Schedule</h4>
+<form method="post" class="row g-3">
+  {% for item in schedule_items %}
+    <div class="col-md-6">
+      <label class="form-label">{{ item.day }}</label>
+      <input type="text" name="{{ item.day }}" value="{{ item.hours }}" class="form-control" placeholder="Hours or Closed">
+    </div>
+  {% endfor %}
+  <div class="col-12 mt-3">
+    <button class="btn btn-primary">Update Schedule</button>
+  </div>
+</form>
+{% endblock %}

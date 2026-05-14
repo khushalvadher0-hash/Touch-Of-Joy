@@ -1,0 +1,37 @@
+﻿{% extends 'admin_base.html' %}
+{% block admin_content %}
+{% if service %}
+  <h4>Edit Service</h4>
+{% else %}
+  <h4>Add Service</h4>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" value="{{ service.name if service else '' }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Category</label>
+    <select name="category" class="form-select" required>
+      <option value="hair" {% if service and service.category == 'hair' %}selected{% endif %}>Hair</option>
+      <option value="skin" {% if service and service.category == 'skin' %}selected{% endif %}>Skin</option>
+      <option value="bridal" {% if service and service.category == 'bridal' %}selected{% endif %}>Bridal</option>
+      <option value="grooming" {% if service and service.category == 'grooming' %}selected{% endif %}>Grooming</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" rows="4" required>{{ service.description if service else '' }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Photo</label>
+    <input type="file" name="photo" accept="image/*" class="form-control">
+    <small class="text-muted">Upload a photo for this service. It will appear on the customer-facing service page.</small>
+    {% if service and service.photo %}
+      <p class="mt-2">Current file: {{ service.photo }}</p>
+    {% endif %}
+  </div>
+  <button class="btn btn-primary">Save Service</button>
+  <a href="{{ url_for('admin.services') }}" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+{% endblock %}

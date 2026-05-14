@@ -1,0 +1,143 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section id="home" class="py-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6">
+      <h1 class="display-5">Welcome to Touch Of Joy Beauty Salon</h1>
+      <p class="lead text-muted">A premium beauty destination for hair, skin, bridal and grooming services. Relax, refresh, and shine with our expert team.</p>
+      <a href="#services" class="btn btn-primary btn-lg mt-3">Explore Services</a>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="hero-image rounded overflow-hidden shadow-sm">
+        <img src="{{ url_for('main.uploaded_file', filename='Make-up_services.jpg') }}" class="d-block w-100" alt="Beauty Hero">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="py-5 bg-light">
+  <div class="text-center mb-5">
+    <h2>Our Services</h2>
+    <p class="text-muted">Choose the right category for your beauty transformation.</p>
+  </div>
+  <div class="row gy-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm service-card">
+        <img src="{{ url_for('main.uploaded_file', filename='Braids.png') }}" class="card-img-top" alt="Hair Service">
+        <div class="card-body">
+          <h5 class="card-title">Hair Service</h5>
+          <p class="card-text">Creative cuts, styling, treatments and more for modern hair care.</p>
+          <a href="{{ url_for('main.services', category='hair') }}" class="btn btn-outline-primary">View Hair Services</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm service-card">
+        <img src="{{ url_for('main.uploaded_file', filename='Facial.webp') }}" class="card-img-top" alt="Skin Service">
+        <div class="card-body">
+          <h5 class="card-title">Skin Service</h5>
+          <p class="card-text">Facials, peels, and glow treatments that revive your skin.</p>
+          <a href="{{ url_for('main.services', category='skin') }}" class="btn btn-outline-primary">View Skin Services</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm service-card">
+        <img src="{{ url_for('main.uploaded_file', filename='Bride.png') }}" class="card-img-top" alt="Bridal Makeup">
+        <div class="card-body">
+          <h5 class="card-title">Bridal Makeup</h5>
+          <p class="card-text">Elegant bridal looks customized for your special day.</p>
+          <a href="{{ url_for('main.services', category='bridal') }}" class="btn btn-outline-primary">View Bridal Services</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm service-card">
+        <img src="{{ url_for('main.uploaded_file', filename='eyebrow-threading.jpeg') }}" class="card-img-top" alt="Grooming">
+        <div class="card-body">
+          <h5 class="card-title">Grooming</h5>
+          <p class="card-text">Expert grooming services designed to refine and refresh your look.</p>
+          <a href="{{ url_for('main.services', category='grooming') }}" class="btn btn-outline-primary">View Grooming Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="py-5">
+  <div class="text-center mb-5">
+    <h2>About Us</h2>
+    <p class="text-muted">Discover what makes Touch Of Joy different.</p>
+  </div>
+  <div class="row gy-4">
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100 shadow-sm p-4">
+        <h5>About our salon</h5>
+        <p>Touch Of Joy is a beauty destination where every detail is crafted for comfort, style and confidence. Our professional team brings the latest beauty trends to life.</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100 shadow-sm p-4">
+        <h5>Location</h5>
+        <p>2nd Floor, Himaliya Square, ISCON Mega City<br>Vidhyanagar, Bhavnagar, Gujarat 364002</p>
+        <p><strong>Phone:</strong> +91 9904020050</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100 shadow-sm p-4">
+        <h5>Follow Us</h5>
+        <div class="insta-section">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="insta-logo"><i class="fa-brands fa-instagram"></i></span>
+            <a href="https://instagram.com/touch_of_joy_beauty_salon" class="insta-username">@touch_of_joy_beauty_salon</a>
+          </div>
+          <img src="{{ url_for('main.uploaded_file', filename='Instagram.png') }}" class="insta-image" alt="Instagram">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100 shadow-sm p-4">
+        <h5>Opening Time</h5>
+        {% for item in schedule_items %}
+          <div class="d-flex justify-content-between border-bottom py-2">
+            <span>{{ item.day }}</span>
+            <span>{{ item.hours }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="py-5 bg-light">
+  <div class="row gy-4 align-items-center">
+    <div class="col-lg-6">
+      <h2>Contact Us</h2>
+      <p class="text-muted">Reach out to book an appointment or ask about our services.</p>
+      <p><strong>Address:</strong> 2nd Floor, Himaliya Square, ISCON Mega City<br>Vidhyanagar, Bhavnagar, Gujarat 364002</p>
+      <p><strong>Phone:</strong> +91 9904020050</p>
+      <p><strong>Phone:</strong> +91 7490965032</p>
+    </div>
+    <div class="col-lg-6">
+      <div class="card shadow-sm p-4">
+        <h5>Send a message</h5>
+        <form method="post" action="{{ url_for('main.contact') }}">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Your name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Your email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-control" rows="4" placeholder="Your message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
