@@ -94,10 +94,12 @@ def add_service():
             flash('Please fill all required fields.', 'danger')
             return render_template('admin_edit_service.html', service=None, active='services')
 
-        photo_filename = save_photo(photo)
-        if photo_filename is None:
-            flash('Only images are allowed for service photos.', 'danger')
-            return render_template('admin_edit_service.html', service=None, active='services')
+        photo_filename = None
+        if photo and photo.filename:
+            photo_filename = save_photo(photo)
+            if photo_filename is None:
+                flash('Only images are allowed for service photos.', 'danger')
+                return render_template('admin_edit_service.html', service=None, active='services')
 
         service = Service(name=name, category=category, description=description, photo=photo_filename)
         db.session.add(service)
