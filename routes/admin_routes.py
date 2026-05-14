@@ -87,11 +87,10 @@ def add_service():
     if request.method == 'POST':
         name = request.form.get('name', '').strip()
         category = request.form.get('category', '').strip().lower()
-        price = request.form.get('price', '').strip()
         description = request.form.get('description', '').strip()
         photo = request.files.get('photo')
 
-        if not name or not category or not price or not description:
+        if not name or not category or not description:
             flash('Please fill all required fields.', 'danger')
             return render_template('admin_edit_service.html', service=None, active='services')
 
@@ -100,7 +99,7 @@ def add_service():
             flash('Only images are allowed for service photos.', 'danger')
             return render_template('admin_edit_service.html', service=None, active='services')
 
-        service = Service(name=name, category=category, price=price, description=description, photo=photo_filename)
+        service = Service(name=name, category=category, description=description, photo=photo_filename)
         db.session.add(service)
         db.session.commit()
         flash('Service added successfully.', 'success')
@@ -119,7 +118,7 @@ def edit_service(service_id):
     if request.method == 'POST':
         service.name = request.form.get('name', '').strip()
         service.category = request.form.get('category', '').strip().lower()
-        service.price = request.form.get('price', '').strip()
+
         service.description = request.form.get('description', '').strip()
         photo = request.files.get('photo')
 

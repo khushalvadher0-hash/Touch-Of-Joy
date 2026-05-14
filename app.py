@@ -86,24 +86,24 @@ def ensure_sample_services():
     if Service.query.count() == 0:
         samples = [
             # Hair Services
-            ('Haircut', 'hair', '₹599', 'Professional haircut tailored to your style and face shape.', 'Hair Cutting.png'),
-            ('Hairstyling', 'hair', '₹1,299', 'Expert styling for any occasion - casual, formal, or wedding.', 'Hairstyle.jpg'),
-            ('Braids', 'hair', '₹1,599', 'Beautiful braid styles for a fresh, trendy look.', 'Braids.png'),
+            ('Haircut', 'hair', 'Professional haircut tailored to your style and face shape.', 'Hair Cutting.png'),
+            ('Hairstyling', 'hair', 'Expert styling for any occasion - casual, formal, or wedding.', 'Hairstyle.jpg'),
+            ('Braids', 'hair', 'Beautiful braid styles for a fresh, trendy look.', 'Braids.png'),
             
             # Skin Services
-            ('Skin Care', 'skin', '₹899', 'Personalized skincare routine tailored to your skin type.', 'Facial.webp'),
-            ('Facials', 'skin', '₹1,199', 'Deep cleansing and rejuvenating facial treatments for radiant skin.', 'Facial.webp'),
-            ('Acne Treatments', 'skin', '₹1,499', 'Targeted acne treatment to clear and prevent breakouts.', 'Acne treatments.jpg'),
-            ('Waxing', 'skin', '₹499', 'Smooth and hair-free skin with our professional waxing service.', 'Waxing.jpeg'),
+            ('Skin Care', 'skin', 'Personalized skincare routine tailored to your skin type.', 'Facial.webp'),
+            ('Facials', 'skin', 'Deep cleansing and rejuvenating facial treatments for radiant skin.', 'Facial.webp'),
+            ('Acne Treatments', 'skin', 'Targeted acne treatment to clear and prevent breakouts.', 'Acne treatments.jpg'),
+            ('Waxing', 'skin', 'Smooth and hair-free skin with our professional waxing service.', 'Waxing.jpeg'),
             
             # Grooming Services
-            ('Eyebrow Threading', 'grooming', '₹299', 'Precise eyebrow shaping with traditional threading technique.', 'eyebrow-threading.jpeg'),
+            ('Eyebrow Threading', 'grooming', 'Precise eyebrow shaping with traditional threading technique.', 'eyebrow-threading.jpeg'),
             
             # Bridal Services
-            ('Bridal Makeup', 'bridal', '₹8,999', 'Complete bridal makeup with premium products and personalized design.', 'Bride.png'),
+            ('Bridal Makeup', 'bridal', 'Complete bridal makeup with premium products and personalized design.', 'Bride.png'),
         ]
-        for name, category, price, description, photo in samples:
-            service = Service(name=name, category=category, price=price, description=description, photo=photo)
+        for name, category, description, photo in samples:
+            service = Service(name=name, category=category, description=description, photo=photo)
             db.session.add(service)
         db.session.commit()
 
